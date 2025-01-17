@@ -4,5 +4,5 @@
 # Except for .dart files
 !**/*.dart
 
-# Specifically keep the 'appdev/lib' folder
+# Track the appdev/lib folder
 !appdev/lib/
