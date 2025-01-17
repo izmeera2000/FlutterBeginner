@@ -49,5 +49,5 @@ app.*.map.json
 # Ignore everything
 *
 
-# But do not ignore this folder and its contents
-!/lib/
+# Except for .dart files
+!**/*.dart
