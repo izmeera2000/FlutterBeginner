@@ -43,8 +43,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-.dart_tool/
-.idea/
-.packages
-build/
-pubspec.lock
+
+
+
+# Ignore everything
+*
+
+# But do not ignore this folder and its contents
+!/lib/
