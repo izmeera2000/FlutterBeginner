@@ -1,8 +1,5 @@
-# Ignore everything
-*
-
-# Except for .dart files
-!**/*.dart
+ 
 
 # Track the appdev/lib folder
+appdev/*
 !appdev/lib/
