@@ -1,5 +1,8 @@
-.dart_tool/
-.idea/
-.packages
-build/
-pubspec.lock
+# Ignore everything
+*
+
+# Except for .dart files
+!**/*.dart
+
+# Track the appdev/lib folder
+!appdev/lib/
