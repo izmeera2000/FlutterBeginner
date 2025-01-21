@@ -1,42 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
+import 'simpledbhelper.dart';
 
-class DatabaseHelper {
-  static Future<Database> initializeDatabase() async {
-    final directory = await getDatabasesPath();
-    final path = join(directory, 'my_database.db');
 
-    return openDatabase(
-      path,
-      version: 1,
-      onCreate: (db, version) async {
-        await db.execute('''
-          CREATE TABLE users(
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            age INTEGER NOT NULL
-          )
-        ''');
-      },
-    );
-  }
-
-  static Future<void> insertUser(String name, int age) async {
-    final db = await initializeDatabase();
-    await db.insert(
-      'users',
-      {'name': name, 'age': age},
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  static Future<List<Map<String, dynamic>>> fetchUsers() async {
-    final db = await initializeDatabase();
-    return await db.query('users');
-  }
-
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -47,7 +12,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
   late Future<List<Map<String, dynamic>>> _users;
 
   @override
@@ -55,12 +19,10 @@ class _HomePageState extends State<HomePage>
     super.initState();
     _users = DatabaseHelper.fetchUsers(); // Fetch users on initialization
 
-    _controller = AnimationController(vsync: this);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -114,7 +76,6 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
 
   void _insertUser() async {
     await DatabaseHelper.insertUser("test", 1);
@@ -123,12 +84,10 @@ class _SearchPageState extends State<SearchPage>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -150,8 +109,7 @@ class _SearchPageState extends State<SearchPage>
                 );
               },
               child: Text("sadasd")),
-          
-          ElevatedButton(
+           ElevatedButton(
               onPressed: () {
                 _insertUser();
                 ScaffoldMessenger.of(context).showSnackBar(

@@ -3,3 +3,5 @@
 # Track the appdev/lib folder
 appdev/*
 !appdev/lib/
+!appdev/pubspec.yaml
+
