@@ -41,6 +41,8 @@ dependencies:
   android_intent_plus: ^5.2.2
   camera: ^0.11.0+2
   path_provider: ^2.1.5
+  vibration: ^3.0.0
+  html: ^0.15.5
 
 dev_dependencies:
   flutter_test:
