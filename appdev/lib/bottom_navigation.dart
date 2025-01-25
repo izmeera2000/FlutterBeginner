@@ -55,19 +55,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   int _selectedIndex = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
 
   void _onItemTapped(int index) {
@@ -101,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items:   [
+        items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "search")
         ],
@@ -120,22 +109,21 @@ class Page1 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page1> with SingleTickerProviderStateMixin {
- 
   @override
   void initState() {
     super.initState();
-   }
+  }
 
   @override
   void dispose() {
-     super.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[
+        children:  [
           SizedBox(height: 20),
         ],
       ),
@@ -151,15 +139,14 @@ class Page2 extends StatefulWidget {
 }
 
 class _Page2State extends State<Page2> with SingleTickerProviderStateMixin {
- 
   @override
   void initState() {
     super.initState();
-   }
+  }
 
   @override
   void dispose() {
-     super.dispose();
+    super.dispose();
   }
 
   @override
@@ -167,20 +154,22 @@ class _Page2State extends State<Page2> with SingleTickerProviderStateMixin {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
-        children: <Widget>[
+        children: [
           SizedBox(height: 20),
-          ElevatedButton(onPressed: (){
-Navigator.push(context, MaterialPageRoute(builder: (context) => MorePage(),));
-
-          }, child: Text("nextpage")),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MorePage(),
+                    ));
+              },
+              child: Text("nextpage")),
         ],
       ),
     );
   }
 }
-
-
-
 
 class MorePage extends StatefulWidget {
   const MorePage({super.key});

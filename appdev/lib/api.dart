@@ -23,7 +23,7 @@ class TodoListScreen extends StatefulWidget {
 }
 
 class _TodoListScreenState extends State<TodoListScreen> {
-  List<dynamic> _tasks = [];
+  List _tasks = [];
   bool _loading = true;
 
   @override
@@ -33,7 +33,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
   }
 
   // Fetch data from API
-  Future<void> _fetchTasks() async {
+  Future _fetchTasks() async {
     final url = Uri.parse('https://jsonplaceholder.typicode.com/todos');
     final response = await http.get(url);
 
