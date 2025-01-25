@@ -158,6 +158,8 @@ class _Page2State extends State<Page2> with SingleTickerProviderStateMixin {
           SizedBox(height: 20),
           ElevatedButton(
               onPressed: () {
+
+                
                 Navigator.push(
                     context,
                     MaterialPageRoute(
