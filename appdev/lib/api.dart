@@ -3,64 +3,64 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 void main() {
-  runApp(MyApp());
+  runApp(TodoApp());
 }
 
-class MyApp extends StatelessWidget {
+class TodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HttpGetExample(),
+      title: 'API To-Do List',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: TodoListScreen(),
     );
   }
 }
 
-class HttpGetExample extends StatefulWidget {
+class TodoListScreen extends StatefulWidget {
   @override
-  _HttpGetExampleState createState() => _HttpGetExampleState();
+  _TodoListScreenState createState() => _TodoListScreenState();
 }
 
-class _HttpGetExampleState extends State<HttpGetExample> {
-  String _response = "Press the button to fetch data";
+class _TodoListScreenState extends State<TodoListScreen> {
+  List<dynamic> _tasks = [];
+  bool _loading = true;
 
-  Future<void> fetchData() async {
-    final String url = "https://api.sampleapis.com/codingresources/codingResources"; // Change this to your IP or sample API
-    try {
-      final response = await http.get(Uri.parse(url));
+  @override
+  void initState() {
+    super.initState();
+    _fetchTasks();
+  }
 
-      if (response.statusCode == 200) {
-        setState(() {
-          _response = jsonDecode(response.body).toString();
-        });
-      } else {
-        setState(() {
-          _response = "Error: ${response.statusCode}";
-        });
-      }
-    } catch (e) {
+  // Fetch data from API
+  Future<void> _fetchTasks() async {
+    final url = Uri.parse('https://jsonplaceholder.typicode.com/todos');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
       setState(() {
-        _response = "Failed to load data: $e";
+        _tasks = json.decode(response.body);
+        _loading = false;
       });
+    } else {
+      throw Exception('Failed to load tasks');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Flutter HTTP GET Example")),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(_response, textAlign: TextAlign.center),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: fetchData,
-              child: Text("Fetch Data"),
+      appBar: AppBar(title: Text('To-Do List from API')),
+      body: _loading
+          ? Center(child: CircularProgressIndicator()) // Show loading spinner
+          : ListView.builder(
+              itemCount: _tasks.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(_tasks[index]['title']),
+                 );
+              },
             ),
-          ],
-        ),
-      ),
     );
   }
 }

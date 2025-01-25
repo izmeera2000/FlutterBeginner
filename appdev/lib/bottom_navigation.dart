@@ -56,6 +56,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int _selectedIndex = 0;
 
   void _incrementCounter() {
     setState(() {
@@ -68,7 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  final List<Widget> _pages = [
+  final List _pages = [
     const Page1(),
     const Page2(),
   ];
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items:   [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "search")
         ],
@@ -120,18 +120,15 @@ class Page1 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page1> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
+ 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
-  }
+   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    super.dispose();
+     super.dispose();
   }
 
   @override
@@ -154,18 +151,15 @@ class Page2 extends StatefulWidget {
 }
 
 class _Page2State extends State<Page2> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
+ 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
-  }
+   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    super.dispose();
+     super.dispose();
   }
 
   @override
@@ -175,6 +169,10 @@ class _Page2State extends State<Page2> with SingleTickerProviderStateMixin {
       child: Column(
         children: <Widget>[
           SizedBox(height: 20),
+          ElevatedButton(onPressed: (){
+Navigator.push(context, MaterialPageRoute(builder: (context) => MorePage(),));
+
+          }, child: Text("nextpage")),
         ],
       ),
     );
@@ -182,3 +180,18 @@ class _Page2State extends State<Page2> with SingleTickerProviderStateMixin {
 }
 
 
+
+
+class MorePage extends StatefulWidget {
+  const MorePage({super.key});
+
+  @override
+  State<MorePage> createState() => _MorePageState();
+}
+
+class _MorePageState extends State<MorePage> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
